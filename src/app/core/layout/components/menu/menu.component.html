@@ -1,0 +1,21 @@
+<p-menu
+  [model]="items"
+  styleClass="bg-[color:var(--primary-color-text)] w-full"
+>
+  <ng-template pTemplate="item" let-item>
+    <a
+      [routerLink]="item.routerLink"
+      class="flex align-items-center p-menuitem-link px-5 hover:text-[color:var(--primary-color)] focus:text-[color:var(--primary-color)] bg-[color:var(--primary-color-text)] font-medium"
+    >
+      <span [class]="item.icon"></span>
+      <span
+        class="ml-2 block transition-[opacity,width] ease-out truncate duration-700"
+        [ngClass]="{
+          'lg:opacity-0 lg:w-0':
+            !layoutService.sideBarHovered && !layoutService.sideBarPinned
+        }"
+        >{{ item.label }}</span
+      >
+    </a>
+  </ng-template>
+</p-menu>

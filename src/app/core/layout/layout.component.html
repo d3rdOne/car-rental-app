@@ -1,0 +1,39 @@
+<div class="layout w-full text-sm flex transition-transform scroll-smooth">
+  <cr-sidebar
+    class="sidebar fixed z-40 w-64 lg:w-14 h-dvh cursor-pointer transition-all transform-gpu duration-300 hover:bg-red-200 shadow-lg"
+    [ngClass]="{
+      'translate-x-0  open': layoutService.sideBarOpen,
+      '-translate-x-full  lg:translate-x-0 close': !layoutService.sideBarOpen,
+      'lg:w-64': layoutService.sideBarPinned,
+      'lg:w-14': !layoutService.sideBarPinned,
+      'lg:hover:w-64': layoutService.sideBarHovered
+    }"
+    (mouseenter)="layoutService.sideBarHovered = true"
+    (mouseleave)="layoutService.sideBarHovered = false"
+  ></cr-sidebar>
+  <div
+    class="main-content min-h-dvh flex-grow flex flex-col relative transition-all bg-gray-50"
+    [ngClass]="{
+      'lg:ml-64': layoutService.sideBarPinned,
+      'lg:ml-12': !layoutService.sideBarPinned
+    }"
+  >
+    <div
+      class="lg:hidden sidebar-overlay absolute bg-slate-800/80 w-full h-full"
+      [ngClass]="{
+        hidden: !layoutService.sideBarOpen
+      }"
+      (click)="closeSideBar($event)"
+    ></div>
+    <cr-header
+      class="shadow-md w-full h-16 flex items-center bg-[color:var(--primary-color-text)] gap-4 text-lg px-4"
+    ></cr-header>
+
+    <div
+      class="main-content flex-1 p-2 pl-4 bg-[color:var(--primary-color-text)]"
+    >
+      <ng-content></ng-content>
+    </div>
+    <cr-footer class="h-12 flex items-center px-4 lg:pl-24"></cr-footer>
+  </div>
+</div>
